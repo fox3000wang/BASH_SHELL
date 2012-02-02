@@ -1,0 +1,68 @@
+首先先要解锁root用户
+sudo pwd root
+su
+
+
+
+First and foremost you need the C compiler and the Make utility. These are usually bundled together with some other tools and behind the scenes magic in a package called build-essential. So this is the first package that should be installed.
+
+$ sudo apt-get install build-essential
+In addition, RVM will also need curl to download files. This is also a simple apt-get.
+
+$ sudo apt-get install curl
+
+
+
+
+
+Next you're going to need a few libraries and their development package counterparts. Two of these libraries are readline, which lets you edit lines of text in bash or IRB, and zlib, which Rubygems will need to function. Also included is OpenSSL and LibXML.
+
+$ sudo apt-get install zlib1g-dev libreadline5-dev libssl-dev libxml2-dev
+
+
+
+
+
+Now that you're all set up, install RVM itself. This is done via a shell script which you can download and run directly with a single command.
+$ sudo apt-get install git-core  
+
+$ bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
+
+
+
+
+
+
+You're almost there. The last part of the installation requires you to edit your ~/.bash_profile file. So, fire up your text editor and add the following line to the end.
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm
+Now either reload your environment by running . ~/.bash_profile or closing and re-opening your terminal window.
+
+
+source /usr/local/rvm/scripts/rvm
+
+rvm install pkg zlib openssl 
+
+
+Finally, you're done, so close the terminal window. Really, close it. You need to start a new Bash shell to complete the installation, so close the terminal window and open a new one. Just as a test, run the command rvm help.
+
+$ rvm help
+
+
+
+
+
+
+
+安装ruby，设置为默认
+rvm install ruby-1.9.2
+rvm use 1.9.2 --default
+
+安装mysql2
+sudo apt-get install libmysql-ruby libmysqlclient-dev
+gem install mysql2 -v0.2.10
+
+安装rails
+gem install bundler rails
+
+

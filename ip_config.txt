@@ -1,0 +1,248 @@
+
+Windows IP Configuration
+
+        Host Name . . . . . . . . . . . . : gc2010
+        Primary Dns Suffix  . . . . . . . : sobatan.com
+        Node Type . . . . . . . . . . . . : Unknown
+        IP Routing Enabled. . . . . . . . : No
+        WINS Proxy Enabled. . . . . . . . : No
+        DNS Suffix Search List. . . . . . : sobatan.com
+
+Ethernet adapter 本地连接:
+
+        Connection-specific DNS Suffix  . :
+        Description . . . . . . . . . . . : Broadcom NetLink (TM) Gigabit Ethernet
+        Physical Address. . . . . . . . . : 00-25-64-BB-0F-1E
+        Dhcp Enabled. . . . . . . . . . . : No
+        IP Address. . . . . . . . . . . . : 192.168.0.177
+        Subnet Mask . . . . . . . . . . . : 255.255.255.0
+        Default Gateway . . . . . . . . . : 192.168.0.253
+        DNS Servers . . . . . . . . . . . : 210.22.70.3
+                                            210.22.70.84
+
+
+
+
+
+文章摘要: LINUX下的网络配置命令是ifconfig类似于WINDOWS命令行中的ipconfig。可以使用ifconfig命令来配置并查看网络接口的配置情况。 例如： （1） 配置eth0的IP地址， 同时激活该设备。 #ifconfig eth0 192.168.1.10 netmask 255.255.255.0 up （2） 配置eth0别名设备eth0:1的IP地址，并添加路由。 #ifconfig eth0 192.168.1.3 #route add –host 192.168.1.3 d
+LINUX下的网络配置命令是ifconfig类似于WINDOWS命令行中的ipconfig。可以使用ifconfig命令来配置并查看网络接口的配置情况。
+例如：
+（1） 配置eth0的IP地址， 同时激活该设备。
+#ifconfig eth0 192.168.1.10 netmask 255.255.255.0 up
+（2） 配置eth0别名设备eth0:1的IP地址，并添加路由。
+#ifconfig eth0 192.168.1.3
+#route add –host 192.168.1.3 dev eth0:1
+（3） 激活设备。
+#ifconfig eth0 up
+（4） 禁用设备。
+#ifconfig eth0 down
+（5） 查看指定的网络接口的配置。
+#ifconfig eth0
+（6） 查看所有的网络接口配置。
+#ifconfig
+2、 route
+可以使用route命令来配置并查看内核路由表的配置情况。
+例如： 
+（1） 添加到主机的路由。
+#route add –host 192.168.1.2 dev eth0:0
+#route add –host 10.20.30.148 gw 10.20.30.40
+（2） 添加到网络的路由。
+#route add –net 10.20.30.40 netmask 255.255.255.248 eth0
+#route add –net 10.20.30.48 netmask 255.255.255.248 gw 10.20.30.41
+#route add –net 192.168.1.0/24 eth1
+（3） 添加默认网关。
+#route add default gw 192.168.1.1
+（4） 查看内核路由表的配置。
+#route
+（5）删除路由。
+#route del –host 192.168.1.2 dev eth0:0
+#route del –host 10.20.30.148 gw 10.20.30.40
+#route del –net 10.20.30.40 netmask 255.255.255.248 eth0
+#route del –net 10.20.30.48 netmask 255.255.255.248 gw 10.20.30.41
+#route del –net 192.168.1.0/24 eth1
+#route del default gw 192.168.1.1
+对于1和2两点可使用下面的语句实现：
+Ifconfig eth0 172.16.19.71 netmask 255.255.255.0
+Route 0.0.0.0 gw 172.16.19.254
+Service network restart
+3、 traceroute
+可以使用traceroute命令显示数据包到达目的主机所经过的路由。
+例如：
+#traceroute x
+4、 ping 
+可以使用ping 命令来测试网络的连通性。
+例如：
+#ping x
+#ping –c 4 192.168.1.12
+5、 netstat
+可以使用netstat命令来显示网络状态信息。
+例如：
+（1） 显示网络接口状态信息。
+#netstat –i
+（2） 显示所有监控中的服务器的Socket和正使用Socket的程序信息。
+#netstat –lpe
+（3） 显示内核路由表信息。
+#netstat –r
+#netstat –nr
+（4） 显示TCP/UDP传输协议的连接状态。
+#netstat –t
+#netstat –u
+6、 hostname
+可以使用hostname命令来更改主机名。例如；
+#hostname myhost
+7、 arp
+可以使用arp命令来配置并查看arp缓存。例如：
+（1） 查看arp缓存。
+#arp
+（2） 添加一个IP地址和MAC地址的对应记录。
+#arp –s 192.168.33.15 00:60:08:27:CE:B2
+（3） 删除一个IP地址和MAC地址的对应缓存记录。
+#arp –d192.168.33.15
+Ubuntu命令行下的网络配置
+编辑 /etc/network/interface文件如下
+先添加
+auto lo
+iface lo inet loopback
+auto eth0
+如果是自动获取ip，添加
+iface eth0 inet dhcp
+如果是手动配置ip，添加
+iface eth0 inet static
+address xxx.xxx.xxx.xxx
+netmask xxx.xxx.xxx.xxx
+network xxx.xxx.xxx.xxx
+boardcast xxx.xxx.xxx.xxx
+gateway xxx.xxx.xxx.xxx
+tags:命令,网络,Ubuntu
+
+
+
+
+
+
+
+
+
+
+
+[转]LINUX与UBUNTU的网络配置文件
+
+一、redhat系统的网络配置文件
+      要建立一个Linux服务器就首先要了解Linux环境下和网络服务相关的配置文件的含义及如何进行安全的配置。在Linux系统中,TCP/IP网络是 通过若干个文本文件进行配置的，也许你需要编辑这些文件来完成联网工作，下面介绍几个基本的TCP/IP网络配置文件。
+1./etc/sysconfig/network-scripts/ifcfg-<interface-name>文件
+在RedHat中，系统网络设备的配置文件保存在/etc/sysconfig/network-scripts目录下，ifcfg-eth0包含第一块 网卡的配置信息，ifcfg-eth1包含第二块网卡的配置信息。在启动时，系统通过读取这个配置文件决定某个网卡是否启动和如何配置。
+下面是/etc/sysconfig/network-scripts/ifcfg-eth0文件的示例：
+DEVICE=eth0
+IPADDR=192.168.0.2
+NETMASK=255.255.255.0
+BROADCAST=192.168.0.255
+ONBOOT=yes
+BOOTPROTO=none
+GATEWAY＝192.168.0.1
+若希望手工修改网络地址或增加新的网络连接，可以通过修改对应的文件ifcfg-<interface-name>或创建新的文件来实现。
+DEVICE=<name>　　　 <name>表示物理设备的名字
+IPADDR=<address>　　　 <address>表示赋给该网卡的IP地址
+NETMASK=<mask>　　 <mask>表示子网掩码
+BROADCAST=<address>　 <address>表示广播地址
+ONBOOT=yes/no　　 启动时是否激活该卡
+BOOTPROTO=none none：无须启动协议
+bootp：使用bootp协议
+　　 dhcp：使用dhcp协议
+GATEWAY=<address> <address>表示默认网关
+MACADDR=<MAC-address> <MAC-address>表示指定一个MAC地址
+USERCTL=yes/no　　　　 是否允许非root用户控制该设备
+2./etc/resolv.conf文件
+文件/etc/resolv.conf配置DNS客户端，它包含了DNS服务器地址和域名搜索配置，每一行应包含一个关键字和一个或多个的由空格隔开的参数。下面是一个例子文件：
+search wuxp.com
+nameserver 192.168.0.1
+nameserver 192.168.0.2
+search wuxp.com:表示当提供了一个不包括完全域名的主机名时，在该主机名后添加wuxp.com的后缀； nameserver:表示解析域名时使用该地址指定的主机为域名服务器。其中域名服务器是按照文件中出现的顺序来查询的。因此，应该首先给出最可靠的服 务器。目前，至多支持三个名字服务器。
+3./etc/sysconfig/network文件
+该文件用来指定服务器上的网络配置信息，下面是一个示例：
+NETWORK=yes
+RORWARD_IPV4=yes
+HOSTNAME=server.wuxp.com
+GAREWAY=192.168.0.1
+GATEWAYDEV=eth0
+NETWORK=yes/no　　　　 网络是否被配置
+FORWARD_IPV4=yes/no　　　　 是否开启IP转发功能
+HOSTNAME=<hostname> <hostname>表示服务器的主机名
+GAREWAY=<address>　　　　 <address>表示网络网关的IP地址
+GAREWAYDEV=<device>　　 <device>表示网关的设备名，如：eth0
+4./etc/hosts文件
+当机器启动时，在可以查询DNS以前，机器需要查询一些主机名到IP地址的匹配。这些匹配信息存放在/etc/hosts文件中。在没有域名服务器情况下，系统上的所有网络程序都通过查询该文件来解析对应于某个主机名的IP地址。
+下面是一个/etc/hosts文件的示例：
+127.0.0.1 Localhost server.wuxp.com
+192.168.0.3 station1.wuxp.com
+最左边一列是主机IP信息，中间一列是主机名。任何后面的列都是该主机的别名。
+网络配置例子：
+你可以进入/etc/sysconfig/network-scripts。找到ifcfg-eth0.编辑它如下：
+DEVICE = eth0
+ONBOOT = yes
+BOOTPROTO = static
+IPADDR= 10.9.100.221(你需要的固定ip)
+NETMASK=255.0.0.0
+GATEWAY=10.255.255.254
+如果需要动态分配IP，那么
+DEVICE = eth0
+ONBOOT = yes
+USERCTL = yes
+BOOTPROTO = dhcp
+完了之后：/etc/rc.d/init.d/network restart
+二、ubuntu系统的网络配置文件
+Ubuntu 的网络配置文件主要有以下几个
+IP地址配置文件： /etc/network/interfaces
+打开后里面可设置DHCP或手动设置静态ip。前面auto eth0，让网卡开机自动挂载.
+1. 以DHCP方式配置网卡
+编辑文件/etc/network/interfaces:
+sudo vi /etc/network/interfaces
+并用下面的行来替换有关eth0的行:
+# The primary network interface - use DHCP to find our address
+auto eth0
+iface eth0 inet dhcp
+用下面的命令使网络设置生效:
+sudo /etc/init.d/networking restart
+也可以在命令行下直接输入下面的命令来获取地址
+sudo dhclient eth0
+2. 为网卡配置静态IP地址
+编辑文件/etc/network/interfaces:
+sudo vi /etc/network/interfaces
+并用下面的行来替换有关eth0的行:# The primary network interface
+auto eth0
+iface eth0 inet static
+address 192.168.3.90
+gateway 192.168.3.1
+netmask 255.255.255.0
+将上面的ip地址等信息换成你自己就可以了.用下面的命令使网络设置生效:
+sudo /etc/init.d/networking restart
+3. 设定第二个IP地址(虚拟IP地址)
+编辑文件/etc/network/interfaces:
+sudo vi /etc/network/interfaces
+在该文件中添加如下的行:
+auto eth0:1
+iface eth0:1 inet static
+address 192.168.1.60
+netmask 255.255.255.0
+network x.x.x.x
+broadcast x.x.x.x
+gateway x.x.x.x
+根据你的情况填上所有诸如address,netmask,network,broadcast和gateways等信息.
+用下面的命令使网络设置生效:
+sudo /etc/init.d/networking restart
+主机名称配置文件(/bin/hostname)
+使用下面的命令来查看当前主机的主机名称:
+sudo /bin/hostname
+使用下面的命令来设置当前主机的主机名称:
+sudo /bin/hostname newname
+系统启动时,它会从/etc/hostname来读取主机的名称.
+DNS配置文件
+首先,你可以在/etc/hosts中加入一些主机名称和这些主机名称对应的IP地址,这是简单使用本机的静态查询.
+要访问DNS 服务器来进行查询,需要设置/etc/resolv.conf文件.
+sudo vi /etc/resolv.conf
+nameserver 202.96.128.68
+nameserver 61.144.56.101
+nameserver 192.168.8.220
+/重新设置网络，以启用新设置
+sudo /etc/init.d/networking restart
+ok
+如果你喜欢用其他的记事本编辑器例如gedit等那就把其中命令中的vi换成gedit就可以了。

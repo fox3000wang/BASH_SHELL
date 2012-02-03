@@ -1,1 +1,10 @@
 git clone git@github.com:fox3000wang/BASH_SHELL.git
+
+
+
+# Push commits
+git push origin master
+
+# Pull in update changes
+git fetch upstream
+git merge upstream/master

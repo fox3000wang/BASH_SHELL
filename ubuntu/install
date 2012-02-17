@@ -1,0 +1,19 @@
+
+
+==============================================================================================================
+
+
+32位Ubuntu中支持超过4G的大内存的方法 
+
+目前32位的Ubuntu仅能支持4G的内存，解决方法是使用server版本的内核： 
+
+# sudo apt-get install linux-restricted-modules-server 
+#【这里每次执行都是说找不到。google也没找到，最后在一论坛上看到一哥们说是 安装ubuntu-restricted-extras。于是更新命令为
+sudo apt-get install ubuntu-restricted-extras。可以下载了】
+
+sudo apt-get install linux-headers-server 
+
+sudo apt-get install linux-image-server linux-server 
+
+最后重启
+

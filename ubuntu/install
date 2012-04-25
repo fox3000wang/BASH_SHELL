@@ -1,4 +1,97 @@
 
+输入法
+为了防止scim与fcitx冲突，如果你安装了scim，你最好卸载掉scim（有一次我的fcitx莫名其妙无法上屏，卸载掉就正常了）：
+sudo apt-get purge scim
+
+sudo add-apt-repository ppa:wengxt/fcitx-nightly #最新的版本都不需要
+sudo apt-get update
+sudo apt-get install fcitx fcitx-config-gtk fcitx-sunpinyin
+
+sudo apt-get install fcitx-table-all #同时安装其他码表
+
+im-switch -s fcitx -z default  #设为默认输入法，一般不需要，除非系统有多个输入法
+
+
+
+安装Ubuntu Tweak
+
+Ubuntu Tweak是最给力的ubuntu设置工具之一。安装它，很简单：
+sudo add-apt-repository ppa:tualatrix/ppa
+sudo apt-get update
+sudo apt-get install ubuntu-tweak
+
+
+
+安装samba
+
+samba服务器安装后，就可以与你所在的网络中的其他同学共享文件了。
+sudo apt-get install samba
+
+
+
+安装媒体工具
+
+首先安装vlc–强大的东东
+sudo apt-get install vlc
+
+还需要安装一些常用的编码
+sudo  apt-get install non-free-codecs libxine1-ffmpeg gxine mencoder  libmpcdec3 libquicktime1 flac faac faad sox ffmpeg2theora libmpeg2-4
+uudeview flac libmpeg3-1 mpeg3-utils mpegdemux liba52-dev mpeg2dec  vorbis-tools id3v2 mpg321 mpg123 libflac++6 ffmpeg libmp4v2-0
+totem-mozilla icedax tagtool easytag id3tool lame  nautilus-script-audio-convert libmad0 libjpeg-progs
+
+若需要支持DVD，则
+sudo apt-get install libdvdcss2 && sudo /usr/share/doc/libdvdread4/./install-css.sh
+
+
+
+安装BT客户端
+
+下载BT，比如各种文艺片，你懂的，我不看，但是看到同学们津津有味，嗯，提供客户端：
+Deluge客户端
+sudo add-apt-repository ppa:deluge-team/ppa
+sudo apt-get update
+sudo apt-get install deluge
+
+Vuze客户端
+sudo apt-get install vuze
+
+
+
+
+
+
+新浪微博很多客户端，除官方推荐外还有eicodesign，还有gwibber的插件
+sudo apt-add-repository ppa:gwibber-team/ppa
+sudo apt-get update
+sudo apt-get install gwibber gwibber-service-sina gwibber-service-sohu
+
+pidgin客户端
+sudo apt-get pidgin
+
+msn客户端
+sudo apt-get install amsn
+
+
+
+
+
+安装Java run time JRE
+
+sudo add-apt-repository ppa:ferramroberto/java
+sudo apt-get update
+sudo apt-get install sun-java6-jre sun-java6-plugin sun-java6-fonts
+
+
+
+
+
+图像编辑GIMP，当属第一！
+安装最新版，虽然系统自带：
+sudo add-apt-repository ppa:matthaeus123/mrw-gimp-svn
+sudo apt-get update
+sudo apt-get install gimp gimp-data gimp-plugin-registry gimp-data-extras
+
+
 
 ==============================================================================================================
 
